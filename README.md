@@ -33,19 +33,8 @@ In the cell below:
 * Import `make_blobs` from `sklearn.datasets`
 * Import pandas, numpy, and matplotlib.pyplot, and set the standard alias for each. 
 * Set matplotlib visualizations to display inline
-* Use numpy to set a random seed of `0`.
+* Use numpy to set a random seed of `1`.
 * Import `KMeans` from `sklearn.cluster`
-
-
-```python
-from sklearn.datasets import make_blobs
-import pandas as pd
-import numpy as np
-np.random.seed(1)
-import matplotlib.pyplot as plt
-%matplotlib inline
-from sklearn.cluster import KMeans
-```
 
 Now, we'll use `make_blobs` to create our dataset. 
 
@@ -59,7 +48,7 @@ In the cell below:
 
 
 ```python
-X, y = make_blobs(n_samples=400, n_features=2, centers=6, cluster_std=0.8)
+X, y = None
 ```
 
 Now, let's visualize our clusters to see what we've created. Run the cell below to visualize our newly created "blob" dataset.
@@ -68,17 +57,6 @@ Now, let's visualize our clusters to see what we've created. Run the cell below 
 ```python
 plt.scatter(X[:, 0], X[:, 1], c=y, s=10)
 ```
-
-
-
-
-    <matplotlib.collections.PathCollection at 0x29724581c88>
-
-
-
-
-![png](output_5_1.png)
-
 
 The nice thing about creating a synthetic dataset with `make_blobs` is that it can assign ground-truth clusters, which is why each of the clusters in the visualization above are colored differently. Because of this, we have a way to check the performance of our clustering results against the ground truth of the synthetic dataset. Note that this isn't something that we can do with real-world problems (because if we had labels, we'd likely use supervised learning instead!). However, when learning how to work with clustering algorithms, this provides a solid way for us to learn a bit more about how the algorithm works. 
 
@@ -94,9 +72,9 @@ In the cell below:
 
 
 ```python
-k_means = KMeans(n_clusters=6)
-k_means.fit(X)
-predicted_clusters = k_means.predict(X)
+k_means = None
+
+predicted_clusters = None
 ```
 
 Now that we have the predicted clusters, let's visualize them both and compare the two. 
@@ -109,21 +87,10 @@ In the cell below:
 
 
 ```python
-plt.scatter(X[:, 0], X[:, 1], c=predicted_clusters, s=10)
-centers = k_means.cluster_centers_
-plt.scatter(centers[:, 0], centers[:, 1], c='black', s=70)
+
+centers = None
+
 ```
-
-
-
-
-    <matplotlib.collections.PathCollection at 0x29724629f28>
-
-
-
-
-![png](output_9_1.png)
-
 
 **_Question:_**
 
@@ -170,7 +137,7 @@ In the cell below:
 
 
 ```python
-X_2, y_2 = make_blobs(n_samples=400, n_features=2, centers=np.random.randint(3, 8))
+X_2, y_2 = None
 ```
 
 Now, we've created a dataset, but we don't know how many clusters actually exist in this dataset, so we don't know what value to set for K!
@@ -185,21 +152,16 @@ Then, store each of the objects in a list.
 
 
 ```python
-k_means_3 = KMeans(n_clusters=3).fit(X_2)
-k_means_4 = KMeans(n_clusters=4).fit(X_2)
-k_means_5 = KMeans(n_clusters=5).fit(X_2)
-k_means_6 = KMeans(n_clusters=6).fit(X_2)
-k_means_7 = KMeans(n_clusters=7).fit(X_2)
+k_means_3 = None
+k_means_4 = None
+k_means_5 = None
+k_means_6 = None
+k_means_7 = None
 
-k_list = [k_means_3, k_means_4, k_means_5, k_means_6, k_means_7]
+k_list = None
 ```
 
 Now, in the cell below, import `calinski_harabaz_score` from `sklearn.metrics`. 
-
-
-```python
- from sklearn.metrics import calinski_harabaz_score
-```
 
 This is a metric used to judge how good our overall fit is. This score works by computing a ratio of between-cluster distance to inter-cluster distance. Intuitively, we can assume that good clusters will have smaller distances between the points in each cluster, and larger distances to the points in other clusters.
 
@@ -220,11 +182,9 @@ In the cell below:
 
 
 ```python
-CH_score = []
+CH_score = None
 
-for model in k_list:
-    labels = model.labels_
-    CH_score.append(calinski_harabaz_score(X_2, labels))
+
 ```
 
 Now, let's create a visualization of our CH scores. 
@@ -241,36 +201,15 @@ plt.xlabel("K=")
 plt.show()
 ```
 
-
-![png](output_19_0.png)
-
-
 **_Question:_**  Interpret the elbow plot we just created. Where is the "elbow" in this plot? According to this plot, how many clusters do you think actually exist in the dataset we created?
 
 Write your answer below this line:
 _______________________________________________________________________________
 
-The "elbow" is at k=6. According to this plot, the dataset most likely contains 6 clusters of data. 
 
 Let's end by visualizing our `X_2` dataset we created, to see what our data actually looks like.
 
 In the cell below, create a scatterplot to visualize our dataset stored in `X_2`. Set `c=y_2`, so that the plot colors each point according to its ground-truth cluster, and set `s=10` so the points won't be too big. 
-
-
-```python
-plt.scatter(X_2[:, 0], X_2[:, 1], c=y_2, s=10)
-```
-
-
-
-
-    <matplotlib.collections.PathCollection at 0x29724b0ed68>
-
-
-
-
-![png](output_21_1.png)
-
 
 We were right! The data does actually contain six clusters. Note that are other types of metrics that can also be used to evaluate the correct value for K, such as silhouette score. However, checking the variance ratio by calculating Calinski Harabaz Scores is one of the most tried-and-true methods, and should definitely be one of the first tools you reach for when trying to figure out the optimal value for K with K-Means Clustering. 
 

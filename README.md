@@ -1,20 +1,20 @@
 
-# K means clustering - Lab
+# K-means Clustering - Lab
 
 ## Introduction
 
-In this lab, we'll learn how to use scikit-learn's implementation of the K-Means Clustering algorithm to analyze a dataset!
+In this lab, we'll learn how to use scikit-learn's implementation of the K-means Clustering algorithm to analyze a dataset!
 
 ## Objectives
 
 You will be able to:
 
-* Demonstrate an understanding of how the K-Means Clustering algorithm works
-* Perform K-Means Clustering with scikit-learn and interpret results
+* Demonstrate an understanding of how the K-means Clustering algorithm works
+* Perform K-means Clustering with scikit-learn and interpret results
 * Use metrics such as Calinski Harabaz Scores (Variance Ratios) to determine the optimal number of clusters
 
 
-## Understanding the K-Means Algorithm 
+## Understanding the K-means Algorithm 
 
 The k means clustering algorithm is an iterative algorithm that reaches for a pre-determined number of clusters within an unlabeled dataset, and basically works as follows:
 
@@ -77,12 +77,12 @@ plt.scatter(X[:, 0], X[:, 1], c=y, s=10)
 
 
 
-![png](output_5_1.png)
+![png](index_files/index_5_1.png)
 
 
 The nice thing about creating a synthetic dataset with `make_blobs` is that it can assign ground-truth clusters, which is why each of the clusters in the visualization above are colored differently. Because of this, we have a way to check the performance of our clustering results against the ground truth of the synthetic dataset. Note that this isn't something that we can do with real-world problems (because if we had labels, we'd likely use supervised learning instead!). However, when learning how to work with clustering algorithms, this provides a solid way for us to learn a bit more about how the algorithm works. 
 
-## Using K-Means
+## Using K-means
 
 Let's go ahead and create a `KMeans` object and fit it to our data. Then, we can explore the results provided by the algorithm to see how well it performs. 
 
@@ -122,7 +122,7 @@ plt.scatter(centers[:, 0], centers[:, 1], c='black', s=70)
 
 
 
-![png](output_9_1.png)
+![png](index_files/index_9_1.png)
 
 
 **_Question:_**
@@ -242,7 +242,7 @@ plt.show()
 ```
 
 
-![png](output_19_0.png)
+![png](index_files/index_19_0.png)
 
 
 **_Question:_**  Interpret the elbow plot we just created. Where is the "elbow" in this plot? According to this plot, how many clusters do you think actually exist in the dataset we created?
@@ -269,10 +269,10 @@ plt.scatter(X_2[:, 0], X_2[:, 1], c=y_2, s=10)
 
 
 
-![png](output_21_1.png)
+![png](index_files/index_21_1.png)
 
 
-We were right! The data does actually contain six clusters. Note that are other types of metrics that can also be used to evaluate the correct value for K, such as silhouette score. However, checking the variance ratio by calculating Calinski Harabaz Scores is one of the most tried-and-true methods, and should definitely be one of the first tools you reach for when trying to figure out the optimal value for K with K-Means Clustering. 
+We were right! The data does actually contain six clusters. Note that are other types of metrics that can also be used to evaluate the correct value for K, such as silhouette score. However, checking the variance ratio by calculating Calinski Harabaz Scores is one of the most tried-and-true methods, and should definitely be one of the first tools you reach for when trying to figure out the optimal value for K with K-means Clustering. 
 
 ## A Note on Dimensionality
 
@@ -281,4 +281,4 @@ We should also note that for this example, we were able to visualize our data be
 
 ## Summary
 
-In this lesson, we learned how to use the K-Means Clustering algorithm in scikit-learn. We also learned a strategy for finding the optimal value for K by using elbow plots and variance ratios, for when we're working with data and we don't know how many clusters actually exist. 
+In this lesson, we learned how to use the K-means clustering algorithm in scikit-learn. We also learned a strategy for finding the optimal value for K by using elbow plots and variance ratios, for when we're working with data and we don't know how many clusters actually exist. 

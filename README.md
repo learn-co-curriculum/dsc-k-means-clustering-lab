@@ -1,22 +1,22 @@
 
-# K means clustering - Lab
+# K-means Clustering - Lab
 
 ## Introduction
 
-In this lab, we'll learn how to use scikit-learn's implementation of the K-Means Clustering algorithm to analyze a dataset!
+In this lab, we'll learn how to use scikit-learn's implementation of the K-means Clustering algorithm to analyze a dataset!
 
 ## Objectives
 
 You will be able to:
 
-* Demonstrate an understanding of how the K-Means Clustering algorithm works
-* Perform K-Means Clustering with scikit-learn and interpret results
+* Demonstrate an understanding of how the K-means Clustering algorithm works
+* Perform K-means Clustering with scikit-learn and interpret results
 * Use metrics such as Calinski Harabaz Scores (Variance Ratios) to determine the optimal number of clusters
 
 
-## Understanding the K-Means Algorithm 
+## Understanding the K-means Algorithm 
 
-The k means clustering algorithm is an iterative algorithm that reaches for a pre-determined number of clusters within an unlabeled dataset, and basically works as follows:
+The k-means clustering algorithm is an iterative algorithm that reaches for a pre-determined number of clusters within an unlabeled dataset, and basically works as follows:
 
 - select k initial seeds
 - assign each observation to the cluster to which it is "closest" 
@@ -60,7 +60,7 @@ plt.scatter(X[:, 0], X[:, 1], c=y, s=10)
 
 The nice thing about creating a synthetic dataset with `make_blobs` is that it can assign ground-truth clusters, which is why each of the clusters in the visualization above are colored differently. Because of this, we have a way to check the performance of our clustering results against the ground truth of the synthetic dataset. Note that this isn't something that we can do with real-world problems (because if we had labels, we'd likely use supervised learning instead!). However, when learning how to work with clustering algorithms, this provides a solid way for us to learn a bit more about how the algorithm works. 
 
-## Using K-Means
+## Using K-means
 
 Let's go ahead and create a `KMeans` object and fit it to our data. Then, we can explore the results provided by the algorithm to see how well it performs. 
 
@@ -103,7 +103,7 @@ _______________________________________________________________________________
 
 ## Tuning Parameters
 
-As you can see, the k means algorithm is pretty good at identifying the clusters. Do keep in mind that for a real data set, you will not be able to evaluate the method as such, as we don't know a priori what the clusters should be. This is the nature of unsupervised learning. The Scikit learn documentation does suggest two methods to evaluate your clusters when the "ground truth" is not known: the Silhouette coefficient and the Calinski-Harabaz Index. We'll talk about them later, but first, let's look at the Scikit learn options when using the KMeans function.
+As you can see, the k-means algorithm is pretty good at identifying the clusters. Do keep in mind that for a real data set, you will not be able to evaluate the method as such, as we don't know a priori what the clusters should be. This is the nature of unsupervised learning. The Scikit learn documentation does suggest two methods to evaluate your clusters when the "ground truth" is not known: the Silhouette coefficient and the Calinski-Harabaz Index. We'll talk about them later, but first, let's look at the Scikit learn options when using the KMeans function.
 
 The nice hing about the scikit learn k-means clustering algorithm is that certain parameters can be specified to tweak the algorithm. We'll discuss two important parameters which we haven't specified before: `init` and `algorithm`.
 
@@ -211,7 +211,7 @@ Let's end by visualizing our `X_2` dataset we created, to see what our data actu
 
 In the cell below, create a scatterplot to visualize our dataset stored in `X_2`. Set `c=y_2`, so that the plot colors each point according to its ground-truth cluster, and set `s=10` so the points won't be too big. 
 
-We were right! The data does actually contain six clusters. Note that are other types of metrics that can also be used to evaluate the correct value for K, such as silhouette score. However, checking the variance ratio by calculating Calinski Harabaz Scores is one of the most tried-and-true methods, and should definitely be one of the first tools you reach for when trying to figure out the optimal value for K with K-Means Clustering. 
+We were right! The data does actually contain six clusters. Note that are other types of metrics that can also be used to evaluate the correct value for K, such as silhouette score. However, checking the variance ratio by calculating Calinski Harabaz Scores is one of the most tried-and-true methods, and should definitely be one of the first tools you reach for when trying to figure out the optimal value for K with K-means clustering. 
 
 ## A Note on Dimensionality
 
@@ -220,4 +220,4 @@ We should also note that for this example, we were able to visualize our data be
 
 ## Summary
 
-In this lesson, we learned how to use the K-Means Clustering algorithm in scikit-learn. We also learned a strategy for finding the optimal value for K by using elbow plots and variance ratios, for when we're working with data and we don't know how many clusters actually exist. 
+In this lesson, we learned how to use the K-means clustering algorithm in scikit-learn. We also learned a strategy for finding the optimal value for K by using elbow plots and variance ratios, for when we're working with data and we don't know how many clusters actually exist. 

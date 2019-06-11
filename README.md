@@ -16,7 +16,7 @@ You will be able to:
 
 ## Understanding the K-means Algorithm 
 
-The k-means clustering algorithm is an iterative algorithm that reaches for a pre-determined number of clusters within an unlabeled dataset, and basically works as follows:
+The k-means clustering algorithm is an iterative algorithm that reaches for a predetermined number of clusters within an unlabeled dataset, and basically works as follows:
 
 - select k initial seeds
 - assign each observation to the cluster to which it is "closest" 
@@ -105,7 +105,7 @@ _______________________________________________________________________________
 
 As you can see, the k-means algorithm is pretty good at identifying the clusters. Do keep in mind that for a real data set, you will not be able to evaluate the method as such, as we don't know a priori what the clusters should be. This is the nature of unsupervised learning. The Scikit learn documentation does suggest two methods to evaluate your clusters when the "ground truth" is not known: the Silhouette coefficient and the Calinski-Harabaz Index. We'll talk about them later, but first, let's look at the Scikit learn options when using the KMeans function.
 
-The nice hing about the scikit learn k-means clustering algorithm is that certain parameters can be specified to tweak the algorithm. We'll discuss two important parameters which we haven't specified before: `init` and `algorithm`.
+The nice thing about the scikit learn k-means clustering algorithm is that certain parameters can be specified to tweak the algorithm. We'll discuss two important parameters which we haven't specified before: `init` and `algorithm`.
 
 ### 1. The `init` parameter
 
@@ -169,7 +169,7 @@ Note that it's not a good idea to just exhaustively try every possible value for
 
 Instead, our best method is to plot the variance ratios, and find the **_elbow_** in the plot. Here's an example of the type of plot we'll generate:
 
-<img src='elbow-method.png'>
+<img src='images/elbow-method.png' width = "500">
 
 In this example, the elbow is at K=3. This provides the biggest change to the CH score, and every one after that provides only a minimal improvement. 
 

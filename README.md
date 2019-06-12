@@ -209,7 +209,7 @@ Instead, our best method is to plot the variance ratios, and find the **_elbow_*
 
 <img src='./images/wcss_elbow1.png' width = "500">
 
-In this example, the elbow is at K=5. This provides the biggest change to the distortion score, and every one after that provides only a minimal improvement. Remember, the elbow plot will have a positive or negative slope depending on the metric used for clustering evaluation. Time to try it out on our data to determine the optimal number of clusters!
+In this example, the elbow is at K=5. This provides the biggest change to the Within Cluster Sum of Squares, and every one after that provides only a minimal improvement. Remember, the elbow plot will have a positive or negative slope depending on the metric used for clustering evaluation. Time to try it out on our data to determine the optimal number of clusters!
 
 In the cell below:
 
@@ -277,7 +277,7 @@ plt.show()
 ![png](index_files/index_22_0.png)
 
 
-**_Question:_**  Interpret the elbow plots we just created. Where is the "elbow" in these plot? According to this plot, how many clusters do you think actually exist in the dataset we created?
+**_Question:_**  Interpret the elbow plots we just created. Where are the "elbow" in these plots? According to these plot, how many clusters do you think actually exist in the dataset we created?
 
 Write your answer below this line:
 _______________________________________________________________________________

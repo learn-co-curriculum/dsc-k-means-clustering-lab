@@ -169,9 +169,9 @@ Note that it's not a good idea to just exhaustively try every possible value for
 
 Instead, our best method is to plot the variance ratios, and find the **_elbow_** in the plot. Here's an example of the type of plot we'll generate:
 
-<img src='images/elbow-method.png' width = "500">
+<img src='images/wcss_elbow1.png' width = "500">
 
-In this example, the elbow is at K=3. This provides the biggest change to the CH score, and every one after that provides only a minimal improvement. 
+In this example, the elbow is at K=5. This provides the biggest change to the within cluster sum of squares score, and every one after that provides only a minimal improvement. Remember, the elbow plot will have a positive or negative slope depending on the metric used for clustering evaluation. Time to try it out on our data to determine the optimal number of clusters!
 
 In the cell below:
 
@@ -201,7 +201,31 @@ plt.xlabel("K=")
 plt.show()
 ```
 
-**_Question:_**  Interpret the elbow plot we just created. Where is the "elbow" in this plot? According to this plot, how many clusters do you think actually exist in the dataset we created?
+That's one metric for evaluating the results, let's take a look at another metric, inertia also known as Within Cluster Sum of Squares (WCSS). In the cell below:
+
+* Create an empty list called `wcss_score`
+* Loop through the models we stored in `k_list`.
+    * For each model, get the labels from the `.labels_` attribute.
+    * Obtain the `inertia_` attribute from each clustering model and append this value to wcss_score.
+
+After creating this, run the cell below it to create a graph.
+
+
+```python
+wcss_score = None
+```
+
+
+```python
+plt.plot([3, 4, 5, 6, 7], wcss_score)
+plt.xticks([3,4,5,6,7])
+plt.title("Within Cluster Sum of Squares")
+plt.ylabel("WCSS")
+plt.xlabel("K=")
+plt.show()
+```
+
+**_Question:_**  Interpret the elbow plots we just created. Where are the "elbows" in these plots? According to these plots, how many clusters do you think actually exist in the dataset we created?
 
 Write your answer below this line:
 _______________________________________________________________________________

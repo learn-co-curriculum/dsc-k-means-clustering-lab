@@ -72,7 +72,7 @@ plt.scatter(X[:, 0], X[:, 1], c=y, s=10)
 
 
 
-    <matplotlib.collections.PathCollection at 0x29724581c88>
+    <matplotlib.collections.PathCollection at 0x11abeacf8>
 
 
 
@@ -117,7 +117,7 @@ plt.scatter(centers[:, 0], centers[:, 1], c='black', s=70)
 
 
 
-    <matplotlib.collections.PathCollection at 0x29724629f28>
+    <matplotlib.collections.PathCollection at 0x11ac547b8>
 
 
 
@@ -207,9 +207,9 @@ Note that it's not a good idea to just exhaustively try every possible value for
 
 Instead, our best method is to plot the variance ratios, and find the **_elbow_** in the plot. Here's an example of the type of plot we'll generate:
 
-<img src='images/elbow-method.png' width = "500">
+<img src='./images/wcss_elbow1.png' width = "500">
 
-In this example, the elbow is at K=3. This provides the biggest change to the CH score, and every one after that provides only a minimal improvement. 
+In this example, the elbow is at K=5. This provides the biggest change to the distortion score, and every one after that provides only a minimal improvement. Remember, the elbow plot will have a positive or negative slope depending on the metric used for clustering evaluation. Time to try it out on our data to determine the optimal number of clusters!
 
 In the cell below:
 
@@ -245,11 +245,44 @@ plt.show()
 ![png](index_files/index_19_0.png)
 
 
-**_Question:_**  Interpret the elbow plot we just created. Where is the "elbow" in this plot? According to this plot, how many clusters do you think actually exist in the dataset we created?
+That's one metric for evaluating the results, let's take a look at another metric, _inertia_ also known as _Within Cluster Sum of Squares_ (WCSS). In the cell below:
+
+* Create an empty list called `wcss_score`
+* Loop through the models we stored in `k_list`. 
+    * For each model, get the labels from the `.labels_` attribute.
+    * Obtain the `inertia_` attribute from each clustering model and append this value to `wcss_score`.
+    
+After creating this, run the cell below it to create a graph.
+
+
+```python
+wcss_score = []
+
+for model in k_list:
+    labels = model.labels_
+    wcss_score.append(model.inertia_)
+```
+
+
+```python
+plt.plot([3, 4, 5, 6, 7], wcss_score)
+plt.xticks([3,4,5,6,7])
+plt.title("Within Cluster Sum of Squares")
+plt.ylabel("WCSS")
+plt.xlabel("K=")
+plt.show()
+```
+
+
+![png](index_files/index_22_0.png)
+
+
+**_Question:_**  Interpret the elbow plots we just created. Where is the "elbow" in these plot? According to this plot, how many clusters do you think actually exist in the dataset we created?
 
 Write your answer below this line:
 _______________________________________________________________________________
 
+There is a clear "elbow" in the CH score graph at 6 clusters, and it looks like there is an elbow at either 5 or 6 clusters as well in the second graph where we're using Within Cluster Sum of Squares as our evaluation metric. With this evidence in hand, let's take a look at the actual number of clusters.
 
 Let's end by visualizing our `X_2` dataset we created, to see what our data actually looks like.
 
@@ -263,12 +296,12 @@ plt.scatter(X_2[:, 0], X_2[:, 1], c=y_2, s=10)
 
 
 
-    <matplotlib.collections.PathCollection at 0x29724b0ed68>
+    <matplotlib.collections.PathCollection at 0x1a20652588>
 
 
 
 
-![png](index_files/index_21_1.png)
+![png](index_files/index_24_1.png)
 
 
 We were right! The data does actually contain six clusters. Note that are other types of metrics that can also be used to evaluate the correct value for K, such as silhouette score. However, checking the variance ratio by calculating Calinski Harabaz Scores is one of the most tried-and-true methods, and should definitely be one of the first tools you reach for when trying to figure out the optimal value for K with K-means clustering. 

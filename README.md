@@ -11,7 +11,7 @@ You will be able to:
 
 * Demonstrate an understanding of how the K-means Clustering algorithm works
 * Perform K-means Clustering with scikit-learn and interpret results
-* Use metrics such as Calinski Harabaz Scores (Variance Ratios) to determine the optimal number of clusters
+* Use metrics such as Calinski Harabasz Scores (variance ratios) to determine the optimal number of clusters
 
 
 ## Understanding the K-means Algorithm 
@@ -36,6 +36,23 @@ In the cell below:
 * Use numpy to set a random seed of `1`.
 * Import `KMeans` from `sklearn.cluster`
 
+
+```python
+# Your code here
+```
+
+
+```python
+# __SOLUTION__
+from sklearn.datasets import make_blobs
+import pandas as pd
+import numpy as np
+np.random.seed(1)
+import matplotlib.pyplot as plt
+%matplotlib inline
+from sklearn.cluster import KMeans
+```
+
 Now, we'll use `make_blobs` to create our dataset. 
 
 In the cell below:
@@ -51,12 +68,35 @@ In the cell below:
 X, y = None
 ```
 
+
+```python
+# __SOLUTION__
+X, y = make_blobs(n_samples=400, n_features=2, centers=6, cluster_std=0.8)
+```
+
 Now, let's visualize our clusters to see what we've created. Run the cell below to visualize our newly created "blob" dataset.
 
 
 ```python
 plt.scatter(X[:, 0], X[:, 1], c=y, s=10)
 ```
+
+
+```python
+# __SOLUTION__
+plt.scatter(X[:, 0], X[:, 1], c=y, s=10)
+```
+
+
+
+
+    <matplotlib.collections.PathCollection at 0x1a1c97c358>
+
+
+
+
+![png](index_files/index_8_1.png)
+
 
 The nice thing about creating a synthetic dataset with `make_blobs` is that it can assign ground-truth clusters, which is why each of the clusters in the visualization above are colored differently. Because of this, we have a way to check the performance of our clustering results against the ground truth of the synthetic dataset. Note that this isn't something that we can do with real-world problems (because if we had labels, we'd likely use supervised learning instead!). However, when learning how to work with clustering algorithms, this provides a solid way for us to learn a bit more about how the algorithm works. 
 
@@ -77,6 +117,14 @@ k_means = None
 predicted_clusters = None
 ```
 
+
+```python
+# __SOLUTION__
+k_means = KMeans(n_clusters=6)
+k_means.fit(X)
+predicted_clusters = k_means.predict(X)
+```
+
 Now that we have the predicted clusters, let's visualize them both and compare the two. 
 
 In the cell below: 
@@ -92,6 +140,25 @@ centers = None
 
 ```
 
+
+```python
+# __SOLUTION__
+plt.scatter(X[:, 0], X[:, 1], c=predicted_clusters, s=10)
+centers = k_means.cluster_centers_
+plt.scatter(centers[:, 0], centers[:, 1], c='black', s=70)
+```
+
+
+
+
+    <matplotlib.collections.PathCollection at 0x1a1cac9f60>
+
+
+
+
+![png](index_files/index_14_1.png)
+
+
 **_Question:_**
 
 In your opinion, do the centroids match up with the cluster centers?
@@ -103,7 +170,7 @@ _______________________________________________________________________________
 
 ## Tuning Parameters
 
-As you can see, the k-means algorithm is pretty good at identifying the clusters. Do keep in mind that for a real data set, you will not be able to evaluate the method as such, as we don't know a priori what the clusters should be. This is the nature of unsupervised learning. The Scikit learn documentation does suggest two methods to evaluate your clusters when the "ground truth" is not known: the Silhouette coefficient and the Calinski-Harabaz Index. We'll talk about them later, but first, let's look at the Scikit learn options when using the KMeans function.
+As you can see, the k-means algorithm is pretty good at identifying the clusters. Do keep in mind that for a real data set, you will not be able to evaluate the method as such, as we don't know a priori what the clusters should be. This is the nature of unsupervised learning. The Scikit learn documentation does suggest two methods to evaluate your clusters when the "ground truth" is not known: the Silhouette coefficient and the Calinski-Harabasz Index. We'll talk about them later, but first, let's look at the Scikit learn options when using the KMeans function.
 
 The nice thing about the scikit learn k-means clustering algorithm is that certain parameters can be specified to tweak the algorithm. We'll discuss two important parameters which we haven't specified before: `init` and `algorithm`.
 
@@ -140,6 +207,12 @@ In the cell below:
 X_2, y_2 = None
 ```
 
+
+```python
+# __SOLUTION__
+X_2, y_2 = make_blobs(n_samples=400, n_features=2, centers=np.random.randint(3, 8))
+```
+
 Now, we've created a dataset, but we don't know how many clusters actually exist in this dataset, so we don't know what value to set for K!
 
 In order to figure out the best value for K, we'll create a different version of the clustering algorithm for each potential value of K, and find the best one using an **_Elbow Plot_**.   
@@ -161,7 +234,30 @@ k_means_7 = None
 k_list = None
 ```
 
-Now, in the cell below, import `calinski_harabaz_score` from `sklearn.metrics`. 
+
+```python
+# __SOLUTION__
+k_means_3 = KMeans(n_clusters=3).fit(X_2)
+k_means_4 = KMeans(n_clusters=4).fit(X_2)
+k_means_5 = KMeans(n_clusters=5).fit(X_2)
+k_means_6 = KMeans(n_clusters=6).fit(X_2)
+k_means_7 = KMeans(n_clusters=7).fit(X_2)
+
+k_list = [k_means_3, k_means_4, k_means_5, k_means_6, k_means_7]
+```
+
+Now, in the cell below, import `calinski_harabasz_score` from `sklearn.metrics`. 
+
+
+```python
+# Your code here
+```
+
+
+```python
+# __SOLUTION__
+ from sklearn.metrics import calinski_harabasz_score
+```
 
 This is a metric used to judge how good our overall fit is. This score works by computing a ratio of between-cluster distance to inter-cluster distance. Intuitively, we can assume that good clusters will have smaller distances between the points in each cluster, and larger distances to the points in other clusters.
 
@@ -178,13 +274,21 @@ In the cell below:
 * Create an empty list called `CH_score`
 * Loop through the models we stored in `k_list`. 
     * For each model, get the labels from the `.labels_` attribute.
-    * Calculate the `calinski_harabaz_score` and pass in the data, `X_2`, and the `labels`. Append this score to `CH_score`
+    * Calculate the `calinski_harabasz_score` and pass in the data, `X_2`, and the `labels`. Append this score to `CH_score`
 
 
 ```python
 CH_score = None
+```
 
 
+```python
+# __SOLUTION__
+CH_score = []
+
+for model in k_list:
+    labels = model.labels_
+    CH_score.append(calinski_harabasz_score(X_2, labels))
 ```
 
 Now, let's create a visualization of our CH scores. 
@@ -195,11 +299,26 @@ Run the cell below to visualize our elbow plot of CH scores.
 ```python
 plt.plot([3, 4, 5, 6, 7], CH_score)
 plt.xticks([3,4,5,6,7])
-plt.title("Calinski Harabaz Scores for Different Values of K")
+plt.title("Calinski Harabasz Scores for Different Values of K")
 plt.ylabel("Variance Ratio")
 plt.xlabel("K=")
 plt.show()
 ```
+
+
+```python
+# __SOLUTION__
+plt.plot([3, 4, 5, 6, 7], CH_score)
+plt.xticks([3,4,5,6,7])
+plt.title("Calinski Harabasz Scores for Different Values of K")
+plt.ylabel("Variance Ratio")
+plt.xlabel("K=")
+plt.show()
+```
+
+
+![png](index_files/index_29_0.png)
+
 
 That's one metric for evaluating the results, let's take a look at another metric, inertia also known as Within Cluster Sum of Squares (WCSS). In the cell below:
 
@@ -217,6 +336,16 @@ wcss_score = None
 
 
 ```python
+# __SOLUTION__
+wcss_score = []
+
+for model in k_list:
+    labels = model.labels_
+    wcss_score.append(model.inertia_)
+```
+
+
+```python
 plt.plot([3, 4, 5, 6, 7], wcss_score)
 plt.xticks([3,4,5,6,7])
 plt.title("Within Cluster Sum of Squares")
@@ -225,17 +354,61 @@ plt.xlabel("K=")
 plt.show()
 ```
 
+
+```python
+# __SOLUTION__
+plt.plot([3, 4, 5, 6, 7], wcss_score)
+plt.xticks([3,4,5,6,7])
+plt.title("Within Cluster Sum of Squares")
+plt.ylabel("WCSS")
+plt.xlabel("K=")
+plt.show()
+```
+
+
+![png](index_files/index_34_0.png)
+
+
 **_Question:_**  Interpret the elbow plots we just created. Where are the "elbows" in these plots? According to these plots, how many clusters do you think actually exist in the dataset we created?
 
 Write your answer below this line:
 _______________________________________________________________________________
 
 
+```python
+# __SOLUTION__
+# There is a clear "elbow" in the CH score graph at 6 clusters, and it looks like there is an elbow at either 5 or 6 clusters 
+# as well in the second graph where we're using Within Cluster Sum of Squares as our evaluation metric. With this evidence in hand, 
+# let's take a look at the actual number of clusters.
+```
+
 Let's end by visualizing our `X_2` dataset we created, to see what our data actually looks like.
 
 In the cell below, create a scatterplot to visualize our dataset stored in `X_2`. Set `c=y_2`, so that the plot colors each point according to its ground-truth cluster, and set `s=10` so the points won't be too big. 
 
-We were right! The data does actually contain six clusters. Note that are other types of metrics that can also be used to evaluate the correct value for K, such as silhouette score. However, checking the variance ratio by calculating Calinski Harabaz Scores is one of the most tried-and-true methods, and should definitely be one of the first tools you reach for when trying to figure out the optimal value for K with K-means clustering. 
+
+```python
+# Your code here
+```
+
+
+```python
+# __SOLUTION__
+plt.scatter(X_2[:, 0], X_2[:, 1], c=y_2, s=10)
+```
+
+
+
+
+    <matplotlib.collections.PathCollection at 0x1a1d207be0>
+
+
+
+
+![png](index_files/index_39_1.png)
+
+
+We were right! The data does actually contain six clusters. Note that are other types of metrics that can also be used to evaluate the correct value for K, such as silhouette score. However, checking the variance ratio by calculating Calinski Harabasz Scores is one of the most tried-and-true methods, and should definitely be one of the first tools you reach for when trying to figure out the optimal value for K with K-means clustering. 
 
 ## A Note on Dimensionality
 

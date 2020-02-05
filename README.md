@@ -1,9 +1,8 @@
-
 # K-means Clustering - Lab
 
 ## Introduction
 
-In this lab, you'll implement k-means clustering algorithm using scikit-learn to analyze a dataset!
+In this lab, you'll implement the k-means clustering algorithm using scikit-learn to analyze a dataset!
 
 ## Objectives
 
@@ -63,7 +62,7 @@ In the cell below:
 X, y = make_blobs(n_samples=400, n_features=2, centers=6, cluster_std=0.8)
 ```
 
-Now, let's visualize our clusters to see what we've created. Run the cell below to visualize our newly created dataset.
+Now let's visualize our clusters to see what we've created. Run the cell below to visualize our newly created dataset.
 
 
 ```python
@@ -139,7 +138,7 @@ The nice thing about the scikit-learn's k-means clustering algorithm is that cer
 
 `algorithm` specifies the algorithm used:
 
-- If `full` is specified, a full EM-style algorithm is performed. EM is short for "Expectation Maximization" and its name is derived from the nature of the algorithm, where in each iteration an E-step (in the context of K-means clustering, the points are assigned to the nearest center) and an M-step (the cluster mean is updated based on the elements of the cluster) is created 
+- If `full` is specified, a full EM-style algorithm is performed. EM is short for "Expectation Maximization" and its name is derived from the nature of the algorithm, wherein each iteration an E-step (in the context of K-means clustering, the points are assigned to the nearest center) and an M-step (the cluster mean is updated based on the elements of the cluster) is created 
 - The EM algorithm can be slow. The `elkan` variation is more efficient, but not available for sparse data 
 - The default is `auto`, and automatically selects `full` for sparse data and `elkan` for dense data 
 
@@ -160,9 +159,9 @@ In the cell below:
 X_2, y_2 = make_blobs(n_samples=400, n_features=2, centers=np.random.randint(3, 8))
 ```
 
-Now, we've created a dataset, but we don't know how many clusters actually exist in this dataset, so we don't know what value to set for K!
+Now we've created a dataset, but we don't know how many clusters actually exist in this dataset, so we don't know what value to set for $k$!
 
-In order to figure out the best value for K, we'll create a different version of the clustering algorithm for each potential value of K, and find the best one using an **_Elbow Plot_**.   
+In order to figure out the best value for $k$, we'll create a different version of the clustering algorithm for each potential value of $k$, and find the best one using an **_Elbow Plot_**.   
 
 
 In the cell below, instantiate and fit `KMeans` with a different value for `n_clusters` between 3 and 7, inclusive.
@@ -189,13 +188,13 @@ from sklearn.metrics import calinski_harabasz_score
 
 This is a metric used to judge how good our overall fit is. This score works by computing a ratio of between-cluster distance to inter-cluster distance. Intuitively, we can assume that good clusters will have smaller distances between the points in each cluster, and larger distances to the points in other clusters.
 
-Note that it's not a good idea to just exhaustively try every possible value for $K$. As $K$ grows, the number of points inside each cluster shrinks, until $K$ is equal to the total number of items in our dataset. At this point, each cluster would report a perfect variance ratio, since each point is at the center of their own individual cluster! 
+Note that it's not a good idea to just exhaustively try every possible value for $k$. As $k$ grows, the number of points inside each cluster shrinks, until $k$ is equal to the total number of items in our dataset. At this point, each cluster would report a perfect variance ratio, since each point is at the center of their own individual cluster! 
 
-Instead, our best method is to plot the variance ratios, and find the **_elbow_** in the plot. Here's an example of the type of plot you'll generate:
+Instead, our best method is to plot the variance ratios and find the **_elbow_** in the plot. Here's an example of the type of plot you'll generate:
 
 <img src='images/wcss_elbow1.png' width = "500">
 
-In this example, the elbow is at $K=5$. This provides the biggest change to the within cluster sum of squares score, and every one after that provides only a minimal improvement. Remember, the elbow plot will have a positive or negative slope depending on the metric used for clustering evaluation. Time to try it out on our data to determine the optimal number of clusters!
+In this example, the elbow is at $k=5$. This provides the biggest change to the within-cluster sum of squares score, and every one after that provides only a minimal improvement. Remember, the elbow plot will have a positive or negative slope depending on the metric used for cluster evaluation. Time to try it out on our data to determine the optimal number of clusters!
 
 In the cell below:
 
@@ -229,7 +228,7 @@ plt.show()
 ![png](index_files/index_19_0.png)
 
 
-That's one metric for evaluating the results, let's take a look at another metric - inertia, also known as Within Cluster Sum of Squares (WCSS). In the cell below:
+That's one metric for evaluating the results; let's take a look at another metric, inertia, also known as Within Cluster Sum of Squares (WCSS). In the cell below:
 
 * Create an empty list called `wcss_score`
 * Loop through the models you stored in `k_list` 
@@ -273,9 +272,9 @@ _______________________________________________________________________________
 # let's take a look at the actual number of clusters.
 ```
 
-Let's end by visualizing the `X_2` dataset you created, to see what the data actually looks like.
+Let's end by visualizing the `X_2` dataset you created to see what the data actually looks like.
 
-In the cell below, create a scatterplot to visualize `X_2`. Set `c=y_2`, so that the plot colors each point according to its ground-truth cluster, and set `s=10` so the points won't be too big. 
+In the cell below, create a scatterplot to visualize `X_2`. Set `c=y_2` so that the plot colors each point according to its ground-truth cluster and set `s=10` so the points won't be too big. 
 
 
 ```python
@@ -286,13 +285,13 @@ plt.scatter(X_2[:, 0], X_2[:, 1], c=y_2, s=10);
 ![png](index_files/index_26_0.png)
 
 
-We were right! The data does actually contain six clusters. Note there are other types of metrics that can also be used to evaluate the correct value for $K$, such as Silhouette score. However, checking the variance ratio by calculating Calinski Harabasz scores is one of the most tried-and-true methods, and should definitely be one of the first tools you reach for when trying to figure out the optimal value for $K$ with K-means clustering. 
+We were right! The data does actually contain six clusters. Note that there are other types of metrics that can also be used to evaluate the correct value for $k$, such as the Silhouette score. However, checking the variance ratio by calculating the Calinski Harabasz scores is one of the most tried-and-true methods, and should definitely be one of the first tools you reach for when trying to figure out the optimal value for $k$ with k-means clustering. 
 
 ## A Note on Dimensionality
 
-We should also note that for this example, we were able to visualize our data because it only contained two dimensions. In the real world, working with datasets with only two dimensions is quite rare. This means that you can't always visualize your plots to double check your work. For this reason, it's extra important to be considerate about the metrics you use to evaluate the performance of your clustering algorithm, since you won't be able to "eyeball" it to visually check how many clusters the data looks like it has when you're working with datasets that contain hundreds of dimensions!
+We should also note that for this example, we were able to visualize our data because it only contained two dimensions. In the real world, working with datasets with only two dimensions is quite rare. This means that you can't always visualize your plots to double-check your work. For this reason, it's extra important to be considerate about the metrics you use to evaluate the performance of your clustering algorithm since you won't be able to "eyeball" it and visually check how many clusters the data looks like it has when you're working with datasets that contain hundreds of dimensions!
 
 
 ## Summary
 
-In this lesson, you used the K-means clustering algorithm in scikit-learn. You also learned a strategy for finding the optimal value for $K$ by using elbow plots and variance ratios, for when you're working with data and you don't know how many clusters actually exist. 
+In this lesson, you used the k-means clustering algorithm in scikit-learn. You also learned a strategy for finding the optimal value for $k$ by using elbow plots and variance ratios for when you're working with data and you don't know how many clusters actually exist. 

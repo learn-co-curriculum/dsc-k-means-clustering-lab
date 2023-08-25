@@ -88,7 +88,9 @@ plt.scatter(X[:, 0], X[:, 1], c=y, s=10);
 ```
 
 
+    
 ![png](index_files/index_8_0.png)
+    
 
 
 The nice thing about creating a synthetic dataset with `make_blobs()` is that it can assign ground-truth clusters, which is why each of the clusters in the visualization above are colored differently. Because of this, we have a way to check the performance of our clustering results against the ground truth of the synthetic dataset. Note that this isn't something that we can do with real-world problems (because if we had labels, we'd likely use supervised learning instead!). However, when learning how to work with clustering algorithms, this provides a solid way for us to learn a bit more about how the algorithm works. 
@@ -142,7 +144,9 @@ plt.scatter(centers[:, 0], centers[:, 1], c='black', s=70);
 ```
 
 
+    
 ![png](index_files/index_14_0.png)
+    
 
 
 **_Question:_**
@@ -250,7 +254,7 @@ Note that it's not a good idea to just exhaustively try every possible value for
 
 Instead, our best method is to plot the variance ratios and find the **_elbow_** in the plot. Here's an example of the type of plot you'll generate:
 
-<img src='images/wcss_elbow1.png' width = "500">
+<img src='https://curriculum-content.s3.amazonaws.com/data-science/images/wcss_elbow1.png' width = "500">
 
 In this example, the elbow is at $k=5$. This provides the biggest change to the within-cluster sum of squares score, and every one after that provides only a minimal improvement. Remember, the elbow plot will have a positive or negative slope depending on the metric used for cluster evaluation. Time to try it out on our data to determine the optimal number of clusters!
 
@@ -300,7 +304,9 @@ plt.show()
 ```
 
 
+    
 ![png](index_files/index_29_0.png)
+    
 
 
 That's one metric for evaluating the results; let's take a look at another metric, inertia, also known as Within Cluster Sum of Squares (WCSS). In the cell below:
@@ -349,7 +355,9 @@ plt.show()
 ```
 
 
+    
 ![png](index_files/index_34_0.png)
+    
 
 
 **_Question:_**  Interpret the elbow plots you just created. Where are the "elbows" in these plots? According to these plots, how many clusters do you think actually exist in the dataset you created?
@@ -381,7 +389,9 @@ plt.scatter(X_2[:, 0], X_2[:, 1], c=y_2, s=10);
 ```
 
 
+    
 ![png](index_files/index_39_0.png)
+    
 
 
 We were right! The data does actually contain six clusters. Note that there are other types of metrics that can also be used to evaluate the correct value for $k$, such as the Silhouette score. However, checking the variance ratio by calculating the Calinski Harabasz scores is one of the most tried-and-true methods, and should definitely be one of the first tools you reach for when trying to figure out the optimal value for $k$ with k-means clustering. 

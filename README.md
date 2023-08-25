@@ -178,7 +178,7 @@ Note that it's not a good idea to just exhaustively try every possible value for
 
 Instead, our best method is to plot the variance ratios and find the **_elbow_** in the plot. Here's an example of the type of plot you'll generate:
 
-<img src='images/wcss_elbow1.png' width = "500">
+<img src='https://curriculum-content.s3.amazonaws.com/data-science/images/wcss_elbow1.png' width = "500">
 
 In this example, the elbow is at $k=5$. This provides the biggest change to the within-cluster sum of squares score, and every one after that provides only a minimal improvement. Remember, the elbow plot will have a positive or negative slope depending on the metric used for cluster evaluation. Time to try it out on our data to determine the optimal number of clusters!
 
